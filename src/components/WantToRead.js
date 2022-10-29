@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-const WantToRead = ({ wantToRead, moveToShelf}) => (
+const WantToRead = ({ wantToRead, moveToShelf, getStatus}) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">Want to Read</h2>
     <div className="bookshelf-books">
@@ -13,6 +13,7 @@ const WantToRead = ({ wantToRead, moveToShelf}) => (
                 title={book.title}
                 authors={book.authors}
                 onMoveToShelf={(e) => moveToShelf(e, book)}
+                getStatus={getStatus}
               />
             </li>
           );

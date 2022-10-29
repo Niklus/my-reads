@@ -1,4 +1,4 @@
-const Book = ({ imageUrl, title, authors, onMoveToShelf }) => (
+const Book = ({ imageUrl, title, authors, onMoveToShelf, getStatus }) => (
   <div className="book">
     <div className="book-top">
       <div
@@ -10,7 +10,7 @@ const Book = ({ imageUrl, title, authors, onMoveToShelf }) => (
         }}
       ></div>
       <div className="book-shelf-changer">
-        <select onChange={onMoveToShelf}>
+        <select value={getStatus(title)} onChange={onMoveToShelf}>
           <option value="">Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

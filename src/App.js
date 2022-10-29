@@ -37,7 +37,6 @@ function App() {
 
   function search(query) {
     bookApi.search(query, 20).then((results) => {
-      console.log(results);
       setSearchResulsts(results);
     });
   }
@@ -117,6 +116,26 @@ function App() {
     }
   }
 
+  function getStatus(title) {
+    const currently_reading = currentlyReading.find((obj) => obj.title === title);
+    const want_to_read = wantToRead.find((obj) => obj.title === title);
+    const _read = read.find((obj) => obj.title === title);
+
+    if(currently_reading) {
+      return "currentlyReading";
+    }
+
+    if(want_to_read) {
+      return "wantToRead";
+    }
+
+    if(_read) {
+      return "read";
+    }
+
+    return "none";
+  }
+
   return (
     <div className="app">
       {showSearchPage ? (
@@ -126,6 +145,7 @@ function App() {
           setShowSearchPage={setShowSearchPage}
           searchResults={searchResults}
           moveToShelf={moveToShelf}
+          getStatus={getStatus}
         />
       ) : (
         <div className="list-books">
@@ -134,9 +154,21 @@ function App() {
           </div>
           <div className="list-books-content">
             <div>
-              <CurrentlyReading currentlyReading={currentlyReading} moveToShelf={moveToShelf}/>
-              <WantToRead wantToRead={wantToRead} moveToShelf={moveToShelf}/>
-              <Read read={read} moveToShelf={moveToShelf}/>
+              <CurrentlyReading 
+                currentlyReading={currentlyReading} 
+                moveToShelf={moveToShelf} 
+                getStatus={getStatus}
+              />
+              <WantToRead 
+                wantToRead={wantToRead} 
+                moveToShelf={moveToShelf}
+                getStatus={getStatus}
+              />
+              <Read 
+                read={read} 
+                moveToShelf={moveToShelf}
+                getStatus={getStatus}
+              />
             </div>
           </div>
           <div className="open-search">

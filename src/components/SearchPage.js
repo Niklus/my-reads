@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Book from "./Book";
 
-const SearchPage = ({ setShowSearchPage, showSearchPage, searchResults, moveToShelf, search }) => (
+const SearchPage = ({ setShowSearchPage, showSearchPage, searchResults, moveToShelf, search, getStatus }) => (
   <div className="search-books">
     <div className="search-books-bar">
       <a
@@ -28,6 +28,7 @@ const SearchPage = ({ setShowSearchPage, showSearchPage, searchResults, moveToSh
                 title={book.title}
                 authors={book.authors}
                 onMoveToShelf={(e) => moveToShelf(e, book)}
+                getStatus={getStatus}
               />
             </li>
           );
