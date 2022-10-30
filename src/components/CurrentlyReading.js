@@ -1,6 +1,6 @@
 import Book from "./Book";
 
-const CurrentlyReading = ({ currentlyReading, moveToShelf, getStatus}) => (
+const CurrentlyReading = ({ currentlyReading, moveToShelf, getStatus }) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">Currently Reading</h2>
     <div className="bookshelf-books">
@@ -9,9 +9,7 @@ const CurrentlyReading = ({ currentlyReading, moveToShelf, getStatus}) => (
           return (
             <li key={index}>
               <Book
-                imageUrl={book.imageLinks.thumbnail}
-                title={book.title}
-                authors={book.authors}
+                book={book}
                 onMoveToShelf={(e) => moveToShelf(e, book)}
                 getStatus={getStatus}
               />
