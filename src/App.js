@@ -16,6 +16,7 @@ function App() {
   const [read, setRead] = useState([]);
 
   useEffect(() => {
+    /* NEEDS FIXING: infinite loop*/
     bookApi.getAll().then((data) => {
       const currentlyReading = data.filter(
         (book) => book.shelf === "currentlyReading"
