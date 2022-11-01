@@ -16,7 +16,6 @@ function App() {
   const [read, setRead] = useState([]);
 
   useEffect(() => {
-    /* NEEDS FIXING: infinite loop*/
     bookApi.getAll().then((data) => {
       const currentlyReading = data.filter(
         (book) => book.shelf === "currentlyReading"
@@ -27,12 +26,38 @@ function App() {
       setWantToRead(wanToRead);
       setRead(read);
     });
-  });
+  }, []);
  
 
   function moveToShelf(event, book) {
     const shelf = event.target.value;
-    bookApi.update(book, shelf);
+    bookApi.update(book, shelf).then(data => {
+
+      const promises = [];
+      
+      data.currentlyReading.forEach(id=> {
+        promises.push(bookApi.get(id));
+      });
+
+      data.wantToRead.forEach(id=> {
+        promises.push(bookApi.get(id))
+      });
+
+      data.read.forEach(id=> {
+        promises.push(bookApi.get(id))
+      });
+
+      Promise.all(promises).then(data => {
+        const currentlyReading = data.filter(
+          (book) => book.shelf === "currentlyReading"
+        );
+        const wanToRead = data.filter((book) => book.shelf === "wantToRead");
+        const read = data.filter((book) => book.shelf === "read");
+        setCurrentlyReading(currentlyReading);
+        setWantToRead(wanToRead);
+        setRead(read);
+      });
+    });
   }
 
   function getStatus(title) {
